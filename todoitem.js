@@ -26,7 +26,7 @@ class TodoItem{
     }
     updateDomElements(){
         this.domElements.list.title.text( this.data.title);
-        this.domElements.list.added.text( this.data.text );
+        this.domElements.list.added.text( this.data.added );
         this.domElements.list.completedCheckbox.attr('checked',this.data.completed )
     }
     renderList(){
@@ -34,13 +34,13 @@ class TodoItem{
             class: 'todoListItem'
         });
         this.domElements.list.title = $("<div>",{
-            class: 'todoList title'
+            class: 'title'
         });
         this.domElements.list.added = $("<div>",{
-            class: 'todoList added'
+            class: 'added'
         });
         this.domElements.list.controlContainer = $("<div>",{
-            class: 'todoList controlArea'
+            class: 'controlArea'
         });
         this.domElements.list.completedCheckbox = $("<input>",{
             type: 'checkbox'

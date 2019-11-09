@@ -1,0 +1,24 @@
+.todoListItem{
+    position: relative;
+    padding-bottom: 2px;
+    display: flex;
+}
+.todoListItem > .title{
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 50%;
+}
+.todoListItem > .added{
+    width: 25%;
+}
+.todoListItem > .controlArea{
+    width: 25%;
+}
+.todoListItem::after{
+    content: '';
+    width: 90%;
+    left: 5%;
+    bottom: 0%;
+    position: absolute;
+    border-bottom: 1px solid black;
+}
