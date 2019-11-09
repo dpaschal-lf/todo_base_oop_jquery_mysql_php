@@ -8,6 +8,7 @@ class TodoController{
             title: null,
             footer: null
         }
+        this.items = [];
         this.view = 'list';
         this.loadTodoList();
     }
@@ -21,7 +22,14 @@ class TodoController{
         $.ajax( ajaxOptions );
     }
     processTodoList( data ){
-        console.log(data);
+        this.items = [];
+        this.domElements.centerContainer.empty();
+        for( var todoIndex = 0; todoIndex < data.length; todoIndex++){
+            var newItem = new TodoItem( data[todoIndex]);
+            this.items.push(newItem);
+            var todoItemDom = newItem.renderList();
+            this.domElements.centerContainer.append(todoItemDom);
+        }
     }
     view_list(){
         return ("list");
@@ -33,7 +41,7 @@ class TodoController{
     render(){
         this.domElements.title = $("<h1>",{
             text: 'TODO APP',
-            class: 'main-title'
+            class: 'mainTitle'
         })
         this.domElements.centerContainer = $("<div>",{
             class: 'centerContents'
