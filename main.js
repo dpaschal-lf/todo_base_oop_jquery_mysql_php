@@ -6,4 +6,5 @@ $(document).ready( startApp );
 
 function startApp(){
     todoApp = new TodoController('#todoApp');
+    todoApp.render();
 }
