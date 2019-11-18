@@ -80,6 +80,13 @@ class TodoItem{
         }
         $.ajax( ajaxOptions );
     }
+    receiveItemInfo( data ){
+        this.data.title = data.title;
+        this.data.completed = data.completed;
+        this.data.description = this.data.description;
+        this.data.added = this.data.added;
+        this.updateDetails();      
+    }
     updateDetails(){
         this.domElements.details.title.text(this.data.title);
         this.domElements.details.added.val(this.data.added);
