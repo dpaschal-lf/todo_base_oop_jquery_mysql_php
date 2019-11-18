@@ -12,6 +12,7 @@ class TodoController{
             footer: null,
             backButton: null
         }
+        this.currentItem = null;
         this.items = [];
         this.view = 'list';
         this.loadTodoList();
@@ -35,7 +36,12 @@ class TodoController{
         this.renderCurrentView();
     }
     handleItemClick( item ){
-        
+        this.currentItem = item;
+        this.view = 'details';
+        this.renderCurrentView();
+    }
+    view_details(){
+        var detailsDom = item.renderDetails();
     }
     view_list(){
         var domElementArray = [];
@@ -52,6 +58,7 @@ class TodoController{
     }
     goBack(){
         this.view='list';
+        this.renderCurrentView();
     }
     render(){
         this.domElements.title = $("<h1>",{
