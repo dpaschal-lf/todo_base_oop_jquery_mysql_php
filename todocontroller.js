@@ -22,6 +22,7 @@ class TodoController{
         $.ajax( ajaxOptions );
     }
     processTodoList( data ){
+        debugger;
         this.items = [];
         this.domElements.centerContainer.empty();
         for( var todoIndex = 0; todoIndex < data.length; todoIndex++){
