@@ -1,7 +1,7 @@
 
 
 class TodoController{
-    constructor( appDomElement ){
+    constructor( appDomElement){
         this.processTodoList = this.processTodoList.bind( this );
         this.domElements = {
             container: $(appDomElement),

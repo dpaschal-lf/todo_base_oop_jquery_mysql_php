@@ -1,14 +1,13 @@
 
 class TodoItem{
     constructor(dataObject){
-        this.data = {};
-        // for( var key in dataObject){
-        //     this.data[key] = dataObject[key];
-        // }
+        this.receiveItemInfo = this.receiveItemInfo.bind( this );
+
         this.data = {
             id: dataObject.id,
             title: dataObject.title,
             completed: dataObject.completed,
+            description: dataObject.description,
             added: dataObject.added
         }
         this.domElements = {
@@ -20,7 +19,11 @@ class TodoItem{
                 completedCheckbox: null,
             },
             details: {
-
+                container: null,
+                title: null,
+                added: null,
+                controlContainer: null,
+                completedCheckbox: null,
             }
         }
     }
@@ -56,7 +59,39 @@ class TodoItem{
         );
         return this.domElements.list.container;
     }
+/*
+            details: {
+                container: null,
+                title: null,
+                added: null,
+                controlContainer: null,
+                completedCheckbox: null,
+            }
+*/
+    getItemInfo(){
+        var ajaxOptions = {
+            'url': './api/gettodoitems.php',
+            'data': {
+                id: this.data.id
+            },
+            'dataType': 'json',
+            'method': 'get',
+            'success': this.receiveItemInfo
+        }
+        $.ajax( ajaxOptions );
+    }
+    updateDetails(){
+        this.domElements.details.title.text(this.data.title);
+        this.domElements.details.added.val(this.data.added);
+    }
     renderDetails(){
-
+        var clone = $($("#todoDetails").text());
+        this.domElements.details.container = clone;
+        this.domElements.details.title = clone.find('.title');
+        this.domElements.details.added = clone.find('.added');
+        this.domElements.details.controlContainer = clone.find('.controls');
+        this.domElements.details.completedCheckbox = clone.find('.completeCheckbox');
+        this.updateDetails();
+        return this.domElements.details.container;
     }
 }
