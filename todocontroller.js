@@ -16,7 +16,6 @@ class TodoController{
         this.currentItem = null;
         this.items = [];
         this.view = 'list';
-        this.loadTodoList();
     }
     loadTodoList(){
         var ajaxOptions = {
@@ -42,11 +41,13 @@ class TodoController{
         this.renderCurrentView();
     }
     view_details(){
+        this.domElements.backButton.removeClass('hidden');
         this.currentItem.getItemInfo();
         var domElement = this.currentItem.renderDetails();
         return domElement;
     }
     view_list(){
+        this.domElements.backButton.addClass('hidden');
         var domElementArray = [];
         for( var todoIndex = 0; todoIndex < this.items.length; todoIndex++){
             var todoItem = this.items[ todoIndex ];
