@@ -30,7 +30,7 @@ class TodoItem{
     updateDomElements(){
         this.domElements.list.title.text( this.data.title);
         this.domElements.list.added.text( this.data.added );
-        this.domElements.list.completedCheckbox.attr('checked',this.data.completed )
+        this.domElements.list.completedCheckbox.attr('checked',this.data.completed );
     }
     renderList(){
         this.domElements.list.container = $("<div>",{
@@ -83,6 +83,8 @@ class TodoItem{
     updateDetails(){
         this.domElements.details.title.text(this.data.title);
         this.domElements.details.added.val(this.data.added);
+        this.domElements.details.description.text(this.data.description);
+        this.domElements.details.completedCheckbox.attr('checked',this.data.completed );
     }
     renderDetails(){
         var clone = $($("#todoDetails").text());
