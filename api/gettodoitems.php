@@ -26,6 +26,9 @@ if(!$result){
 }
 
 if($id){
+    if(mysqli_num_rows($result)===0){
+        throw new Exception('invalid ID ' . $id);
+    }
     $data = mysqli_fetch_assoc($result);
 } else {
     $data = [];
