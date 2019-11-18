@@ -1,9 +1,10 @@
 
 class TodoItem{
-    constructor(dataObject, clickCallback){
+    constructor(dataObject, clickCallback, tokenReceivedCallback){
         this.receiveItemInfo = this.receiveItemInfo.bind( this );
         this.handleClick = this.handleClick.bind( this );
         this.clickCallback = clickCallback;
+        this.receivedTokenCallback = tokenReceivedCallback;
         this.data = {
             id: dataObject.id,
             title: dataObject.title,
@@ -72,13 +73,19 @@ class TodoItem{
             'data': {
                 id: this.data.id
             },
+            'headers': {
+                'token': localStorage.getItem('userToken')
+            },
             'dataType': 'json',
             'method': 'get',
             'success': this.receiveItemInfo
         }
         $.ajax( ajaxOptions );
     }
-    receiveItemInfo( data ){
+    receiveItemInfo( data, status, request ){
+        if(request.getResponseHeader('userToken')){
+            this.tokenReceivedCallback(request.getResponseHeader('userToken') );
+        }
         this.data.title = data.title;
         this.data.completed = data.completed;
         this.data.description = data.description;

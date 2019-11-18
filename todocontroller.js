@@ -23,6 +23,9 @@ class TodoController{
             'url': './api/gettodoitems.php',
             'dataType': 'json',
             'method': 'get',
+            'headers': {
+                'token': localStorage.getItem('userToken')
+            },
             'success': this.processTodoList,
         }
         $.ajax( ajaxOptions );
@@ -34,6 +37,7 @@ class TodoController{
         localStorage.userToken = token;
     }
     processTodoList( data, status, request ){
+        debugger;
         if(request.getResponseHeader('userToken')){
             this.storeUserToken(request.getResponseHeader('userToken') );
         }

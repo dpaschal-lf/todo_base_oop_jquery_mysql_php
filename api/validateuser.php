@@ -29,15 +29,7 @@ if(!function_exists('validateUser')){
         } else {
             $token = $headers['token'];
             $query = 'SELECT `id` FROM `users` WHERE `key` = ?';
-            $statement = mysqli_prepare($db, $query);
-            if(!$statement){
-                throw new Exception('error processing statemnt');
-            }
-            mysqli_bind_param($statement, 's',$token);
-            $result = mysqli_stmt_execute($statement);
-            if(!$result){
-                throw new Exception('error fetching data for user');
-            }
+            $result = prepare_statement($query, [$token]);
             if(mysqli_num_rows($result)===0){
                 throw new Exception('token not valid');
             }
