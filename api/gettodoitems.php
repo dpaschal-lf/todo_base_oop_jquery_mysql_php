@@ -4,7 +4,7 @@ set_exception_handler('handleExceptions');
 require_once('mysqlconnect.php');
 require_once('validateuser.php');
 
-$id = validateUser();
+$userID = validateUser();
 
 $fields = '`title`, `added`, `id`, `completed`';
 $id = false;
@@ -21,7 +21,7 @@ if(!empty($_GET['id'])){
     $subQuery = 'WHERE `id`='.$id;
 } 
 
-$query = "SELECT $fields FROM `items` $subQuery";
+$query = "SELECT $fields FROM `items` $subQuery WHERE `userID`=0 OR `userID` = $userID";
 
 $result = mysqli_query($db, $query);
 
