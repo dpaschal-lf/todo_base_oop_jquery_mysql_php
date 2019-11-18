@@ -2,6 +2,9 @@
 require_once('functions.php');
 set_exception_handler('handleExceptions');
 require_once('mysqlconnect.php');
+require_once('validateuser.php');
+
+$id = validateUser();
 
 $fields = '`title`, `added`, `id`, `completed`';
 $id = false;

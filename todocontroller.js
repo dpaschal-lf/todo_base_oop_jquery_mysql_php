@@ -5,6 +5,7 @@ class TodoController{
         this.processTodoList = this.processTodoList.bind( this );
         this.goBack = this.goBack.bind( this );
         this.handleItemClick = this.handleItemClick.bind( this );
+        this.storeUserToken = this.storeUserToken.bind( this );
         this.domElements = {
             container: $(appDomElement),
             centerContainer: null,
@@ -22,15 +23,24 @@ class TodoController{
             'url': './api/gettodoitems.php',
             'dataType': 'json',
             'method': 'get',
-            'success': this.processTodoList
+            'success': this.processTodoList,
         }
         $.ajax( ajaxOptions );
     }
-    processTodoList( data ){
+    getUserToken(){
+        return localStorage.getItem('userToken');
+    }
+    storeUserToken( token ){
+        localStorage.userToken = token;
+    }
+    processTodoList( data, status, request ){
+        if(request.getResponseHeader('userToken')){
+            this.storeUserToken(request.getResponseHeader('userToken') );
+        }
         this.items = [];
         this.domElements.centerContainer.empty();
         for( var todoIndex = 0; todoIndex < data.length; todoIndex++){
-            var newItem = new TodoItem( data[todoIndex], this.handleItemClick);
+            var newItem = new TodoItem( data[todoIndex], this.handleItemClick, this.storeUserToken);
             this.items.push(newItem);
         }
         this.renderCurrentView();
@@ -72,12 +82,13 @@ class TodoController{
         this.domElements.centerContainer = $("<div>",{
             class: 'centerContents'
         });
-        this.renderCurrentView();
+
         this.domElements.controls = $("<header>",{
             class: 'header controls',
         });
         this.domElements.backButton = $("<button>",{
             class: 'backButton hidden',
+            text: 'back',
             on: {
                 click: this.goBack
             }
@@ -89,9 +100,11 @@ class TodoController{
         });
         this.domElements.container.append( 
             this.domElements.title,
+            this.domElements.controls,
             this.domElements.centerContainer,
             this.domElements.footer
         )
+        this.renderCurrentView();
         return this.domElements.container;
     }
 }
