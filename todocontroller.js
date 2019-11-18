@@ -42,7 +42,7 @@ class TodoController{
         this.renderCurrentView();
     }
     view_details(){
-        debugger;
+        this.currentItem.getItemInfo();
         var domElement = this.currentItem.renderDetails();
         return domElement;
     }

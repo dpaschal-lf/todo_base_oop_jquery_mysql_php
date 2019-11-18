@@ -81,13 +81,14 @@ class TodoItem{
     receiveItemInfo( data ){
         this.data.title = data.title;
         this.data.completed = data.completed;
-        this.data.description = this.data.description;
-        this.data.added = this.data.added;
+        this.data.description = data.description;
+        this.data.added = data.added;
         this.updateDetails();      
     }
     updateDetails(){
         this.domElements.details.title.text(this.data.title);
-        this.domElements.details.added.val(this.data.added);
+        var dateAdded = new Date( this.data.added );
+        this.domElements.details.added[0].valueAsNumber = dateAdded.getTime();
         this.domElements.details.description.text(this.data.description);
         this.domElements.details.completedCheckbox.attr('checked',this.data.completed );
     }
