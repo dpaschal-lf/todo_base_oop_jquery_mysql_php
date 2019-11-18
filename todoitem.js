@@ -1,8 +1,8 @@
 
 class TodoItem{
-    constructor(dataObject){
+    constructor(dataObject, clickCallback){
         this.receiveItemInfo = this.receiveItemInfo.bind( this );
-
+        this.clickCallback = clickCallback;
         this.data = {
             id: dataObject.id,
             title: dataObject.title,

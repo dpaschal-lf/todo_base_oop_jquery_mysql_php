@@ -3,10 +3,14 @@
 class TodoController{
     constructor( appDomElement){
         this.processTodoList = this.processTodoList.bind( this );
+        this.goBack = this.goBack.bind( this );
         this.domElements = {
             container: $(appDomElement),
+            centerContainer: null,
+            controls: null,
             title: null,
-            footer: null
+            footer: null,
+            backButton: null
         }
         this.items = [];
         this.view = 'list';
@@ -22,22 +26,32 @@ class TodoController{
         $.ajax( ajaxOptions );
     }
     processTodoList( data ){
-        debugger;
         this.items = [];
         this.domElements.centerContainer.empty();
         for( var todoIndex = 0; todoIndex < data.length; todoIndex++){
             var newItem = new TodoItem( data[todoIndex]);
             this.items.push(newItem);
-            var todoItemDom = newItem.renderList();
-            this.domElements.centerContainer.append(todoItemDom);
         }
+        this.renderCurrentView();
+    }
+    handleItemClick( item ){
+        
     }
     view_list(){
-        return ("list");
+        var domElementArray = [];
+        for( var todoIndex = 0; todoIndex < this.items.length; todoIndex++){
+            var todoItem = this.items[ todoIndex ];
+            domElementArray.push( todoItem.renderList())
+        }
+        return domElementArray;
     }
     renderCurrentView(){
         var currentViewMethod = 'view_' + this.view;
-        this.domElements.centerContainer.append( this[currentViewMethod]);        
+        this.domElements.centerContainer.empty()
+        this.domElements.centerContainer.append( this[currentViewMethod]());        
+    }
+    goBack(){
+        this.view='list';
     }
     render(){
         this.domElements.title = $("<h1>",{
@@ -48,6 +62,16 @@ class TodoController{
             class: 'centerContents'
         });
         this.renderCurrentView();
+        this.domElements.controls = $("<header>",{
+            class: 'header controls',
+        });
+        this.domElements.backButton = $("<button>",{
+            class: 'backButton hidden',
+            on: {
+                click: this.goBack
+            }
+        });
+        this.domElements.controls.append( this.domElements.backButton );
         this.domElements.footer = $("<footer>",{
             class: 'footer',
             text: 'footer'

@@ -5,6 +5,7 @@ require_once('mysqlconnect.php');
 
 $fields = '`title`, `added`, `id`, `completed`';
 $id = false;
+$subQuery = '';
 if(!empty($_GET['id'])){
     if(!is_numeric($_GET['id'])){
         throw new Exception('id must be a number');
