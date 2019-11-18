@@ -2,6 +2,7 @@
 class TodoItem{
     constructor(dataObject, clickCallback){
         this.receiveItemInfo = this.receiveItemInfo.bind( this );
+        this.handleClick = this.handleClick.bind( this );
         this.clickCallback = clickCallback;
         this.data = {
             id: dataObject.id,
@@ -27,6 +28,9 @@ class TodoItem{
             }
         }
     }
+    handleClick( ){
+        this.clickCallback( this );
+    }
     updateDomElements(){
         this.domElements.list.title.text( this.data.title);
         this.domElements.list.added.text( this.data.added );
@@ -34,7 +38,10 @@ class TodoItem{
     }
     renderList(){
         this.domElements.list.container = $("<div>",{
-            class: 'todoListItem'
+            class: 'todoListItem',
+            on: {
+                click: this.handleClick
+            }
         });
         this.domElements.list.title = $("<div>",{
             class: 'title'
@@ -59,15 +66,6 @@ class TodoItem{
         );
         return this.domElements.list.container;
     }
-/*
-            details: {
-                container: null,
-                title: null,
-                added: null,
-                controlContainer: null,
-                completedCheckbox: null,
-            }
-*/
     getItemInfo(){
         var ajaxOptions = {
             'url': './api/gettodoitems.php',
@@ -98,6 +96,7 @@ class TodoItem{
         this.domElements.details.container = clone;
         this.domElements.details.title = clone.find('.title');
         this.domElements.details.added = clone.find('.added');
+        this.domElements.details.description = clone.find('.description');
         this.domElements.details.controlContainer = clone.find('.controls');
         this.domElements.details.completedCheckbox = clone.find('.completeCheckbox');
         this.updateDetails();

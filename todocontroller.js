@@ -4,6 +4,7 @@ class TodoController{
     constructor( appDomElement){
         this.processTodoList = this.processTodoList.bind( this );
         this.goBack = this.goBack.bind( this );
+        this.handleItemClick = this.handleItemClick.bind( this );
         this.domElements = {
             container: $(appDomElement),
             centerContainer: null,
@@ -30,7 +31,7 @@ class TodoController{
         this.items = [];
         this.domElements.centerContainer.empty();
         for( var todoIndex = 0; todoIndex < data.length; todoIndex++){
-            var newItem = new TodoItem( data[todoIndex]);
+            var newItem = new TodoItem( data[todoIndex], this.handleItemClick);
             this.items.push(newItem);
         }
         this.renderCurrentView();
@@ -41,7 +42,7 @@ class TodoController{
         this.renderCurrentView();
     }
     view_details(){
-        var detailsDom = item.renderDetails();
+        return this.currentItem.renderDetails();
     }
     view_list(){
         var domElementArray = [];
