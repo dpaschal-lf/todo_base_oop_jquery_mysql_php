@@ -1,7 +1,7 @@
 
 
 class TodoController{
-    constructor( appDomElement){
+    constructor( appDomElement, modalDomElements){
         this.processTodoList = this.processTodoList.bind( this );
         this.goBack = this.goBack.bind( this );
         this.handleItemClick = this.handleItemClick.bind( this );
@@ -9,6 +9,10 @@ class TodoController{
         this.handleSuccessfulCreateItem = this.handleSuccessfulCreateItem.bind( this );
         this.domElements = {
             container: $(appDomElement),
+            modalShadow: $(modalDomElements.shadow),
+            modalBody: $(modalDomElements.body),
+            modalClose: $(modalDomElements.close),
+            modalContent: $(modalDomElements.content),
             centerContainer: null,
             controls: null,
             title: null,
@@ -74,6 +78,12 @@ class TodoController{
         this.currentItem = item;
         this.view = 'details';
         this.renderCurrentView();
+    }
+    displayModal( content ){
+
+    }
+    hideModal(){
+
     }
     view_create(){
         var clone = $($('#todoDetails').text());
