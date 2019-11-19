@@ -120,6 +120,7 @@ class TodoItem{
         this.domElements.details.title.text(this.data.title);
         var dateAdded = new Date( this.data.added );
         this.domElements.details.added[0].valueAsNumber = dateAdded.getTime();
+        debugger;
         this.domElements.details.description.text(this.data.description);
         this.domElements.details.completedCheckbox.attr('checked',this.data.completed );
     }

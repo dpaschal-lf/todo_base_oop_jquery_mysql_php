@@ -8,7 +8,7 @@ $userID = validateUser();
 
 $fields = '`title`, `added`, `id`, `completed`';
 $id = false;
-$subQuery = '';
+$whereClause = "WHERE (`userID`=0 OR `userID` = {$userID})";
 if(!empty($_GET['id'])){
     if(!is_numeric($_GET['id'])){
         throw new Exception('id must be a number');
@@ -18,10 +18,10 @@ if(!empty($_GET['id'])){
         throw new Exception('id must be greater than 0');
     }
     $fields .= ',`description`';
-    $subQuery = 'WHERE `id`='.$id;
+    $whereClause = "WHERE `id`={$id} AND (`userID`=0 OR `userID` = $userID)";
 } 
 
-$query = "SELECT $fields FROM `items` $subQuery WHERE `userID`=0 OR `userID` = $userID";
+$query = "SELECT $fields FROM `items` $whereClause";
 
 $result = mysqli_query($db, $query);
 
