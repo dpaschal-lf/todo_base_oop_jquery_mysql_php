@@ -6,6 +6,7 @@ class TodoController{
         this.goBack = this.goBack.bind( this );
         this.handleItemClick = this.handleItemClick.bind( this );
         this.storeUserToken = this.storeUserToken.bind( this );
+        this.handleSuccessfulCreateItem = this.handleSuccessfulCreateItem.bind( this );
         this.domElements = {
             container: $(appDomElement),
             centerContainer: null,
@@ -30,6 +31,27 @@ class TodoController{
         }
         $.ajax( ajaxOptions );
     }
+    createTodoItem(title, description){
+        var ajaxOptions = {
+            'url': './api/posttodoitems.php',
+            'dataType': 'json',
+            'method': 'post',
+            'data': {
+                'title': title,
+                'description': description
+            },
+            'headers': {
+                'token': localStorage.getItem('userToken')
+            },
+            'success': this.handleSuccessfulCreateItem,
+        }
+        $.ajax( ajaxOptions );        
+    }
+    handleSuccessfulCreateItem(){
+        this.view = 'list';
+        this.renderCurrentView();
+        this.loadTodoList();
+    }
     getUserToken(){
         return localStorage.getItem('userToken');
     }
@@ -37,7 +59,6 @@ class TodoController{
         localStorage.userToken = token;
     }
     processTodoList( data, status, request ){
-        debugger;
         if(request.getResponseHeader('userToken')){
             this.storeUserToken(request.getResponseHeader('userToken') );
         }
@@ -53,6 +74,13 @@ class TodoController{
         this.currentItem = item;
         this.view = 'details';
         this.renderCurrentView();
+    }
+    view_create(){
+        var clone = $($('#todoDetails').text());
+        var editableFields = ['.title', '.description'];
+        var removedFields = ['.added','.controls'];
+        editableFields.forEach( field => clone.find(field).attr('contentEditable','editabe').addClass('editable'));
+        removedFields.forEach( field => clone.find(field).remove());
     }
     view_details(){
         this.domElements.backButton.removeClass('hidden');
