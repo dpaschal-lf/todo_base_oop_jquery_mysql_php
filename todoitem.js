@@ -3,6 +3,7 @@ class TodoItem{
     constructor(dataObject, clickCallback, tokenReceivedCallback){
         this.receiveItemInfo = this.receiveItemInfo.bind( this );
         this.handleClick = this.handleClick.bind( this );
+        this.itemUpdated = this.itemUpdated.bind( this );
         this.clickCallback = clickCallback;
         this.receivedTokenCallback = tokenReceivedCallback;
         this.data = {
@@ -66,6 +67,26 @@ class TodoItem{
             this.domElements.list.controlContainer
         );
         return this.domElements.list.container;
+    }
+    updateItemInfo(){
+        var ajaxOptions = {
+            'url': './api/puttodoitems.php',
+            'data': {
+                id: this.data.id,
+                title: this.data.title,
+                description: this.data.description
+            },
+            'headers': {
+                'token': localStorage.getItem('userToken')
+            },
+            'dataType': 'json',
+            'method': 'put',
+            'success': this.itemUpdated
+        }
+        $.ajax( ajaxOptions );        
+    }
+    itemUpdated( data ){
+
     }
     getItemInfo(){
         var ajaxOptions = {
