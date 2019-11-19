@@ -26,14 +26,16 @@
             </div>
             <div class="description updatable" placeholder='description'></div>
             <input type="datetime-local" name="added" class="added">
-            <button class="saveButton">save</button><button class="cancelButton">cancel</button>
+            <div class="updateControls hidden">
+                    <button class="saveButton">save</button><button class="cancelButton">cancel</button>
+            </div>
         </div>
     </script>
     <script id="todoCreate" type="text/html">
         <div class="create">
             <input type="text" class="title" placeholder="title">
             <input type="text" class="description" placeholder='description'>
-            <button class="saveButton">save</button><button class="cancelButton">cancel</button>
+            <button class="saveButton">save</button><button class="cancelButton">cancel</button>            
         </div>
     </script>
     <link rel="stylesheet" href="tododetails.css">

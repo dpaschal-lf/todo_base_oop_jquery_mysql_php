@@ -4,6 +4,7 @@ class TodoItem{
         this.receiveItemInfo = this.receiveItemInfo.bind( this );
         this.handleClick = this.handleClick.bind( this );
         this.itemUpdated = this.itemUpdated.bind( this );
+        this.toggleUpdateStatus = this.toggleUpdateStatus.bind( this );
         this.clickCallback = clickCallback;
         this.receivedTokenCallback = tokenReceivedCallback;
         this.data = {
@@ -27,6 +28,7 @@ class TodoItem{
                 added: null,
                 controlContainer: null,
                 completedCheckbox: null,
+                updateControls: null
             }
         }
     }
@@ -121,9 +123,19 @@ class TodoItem{
         this.domElements.details.description.text(this.data.description);
         this.domElements.details.completedCheckbox.attr('checked',this.data.completed );
     }
+    displaySaveCancelInterface(){
+        console.log('dispaying save/cancel');
+        this.domElements.updateControls.removeClass('hidden');
+    }
+    toggleUpdateStatus( event ){
+        $(event.target).addClass('editable').attr('contentEditable',true);
+        this.displaySaveCancelInterface();
+    }
     renderDetails(){
         var clone = $($("#todoDetails").text());
+        clone.find('.updatable').on('click',this.toggleUpdateStatus);
         this.domElements.details.container = clone;
+        this.domElements.updateControls = clone.find('.updateControls');
         this.domElements.details.title = clone.find('.title');
         this.domElements.details.added = clone.find('.added');
         this.domElements.details.description = clone.find('.description');
