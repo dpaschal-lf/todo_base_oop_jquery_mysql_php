@@ -6,10 +6,10 @@ $(document).ready( startApp );
 
 function startApp(){
     todoApp = new TodoController('#todoApp', {
-        modalShadow: '#modalShadow',
-        modalBody: '#modalBody',
-        modalClose: '#modalClose',
-        modalContent: '#modalContent',
+        shadow: '#modalShadow',
+        body: '#modalBody',
+        close: '#modalClose',
+        content: '#modalContents',
     });
     todoApp.render();
     todoApp.loadTodoList();

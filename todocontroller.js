@@ -7,6 +7,7 @@ class TodoController{
         this.handleItemClick = this.handleItemClick.bind( this );
         this.storeUserToken = this.storeUserToken.bind( this );
         this.handleSuccessfulCreateItem = this.handleSuccessfulCreateItem.bind( this );
+        this.hideModal = this.hideModal.bind( this );
         this.domElements = {
             container: $(appDomElement),
             modalShadow: $(modalDomElements.shadow),
@@ -80,10 +81,12 @@ class TodoController{
         this.renderCurrentView();
     }
     displayModal( content ){
-
+        this.domElements.modalShadow.removeClass('hidden');
+        this.domElements.modalClose.off('click').click( this.hideModal );
+        this.domElements.modalContent.html( content );
     }
     hideModal(){
-
+        this.domElements.modalShadow.addClass('hidden');
     }
     view_create(){
         var clone = $($('#todoDetails').text());
