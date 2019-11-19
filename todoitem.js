@@ -5,8 +5,11 @@ class TodoItem{
         this.handleClick = this.handleClick.bind( this );
         this.itemUpdated = this.itemUpdated.bind( this );
         this.toggleUpdateStatus = this.toggleUpdateStatus.bind( this );
+        this.saveChanges = this.saveChanges.bind ( this );
+        this.cancelChanges = this.cancelChanges.bind ( this );
         this.clickCallback = clickCallback;
         this.receivedTokenCallback = tokenReceivedCallback;
+        this.editableElements = [];
         this.data = {
             id: dataObject.id,
             title: dataObject.title,
@@ -128,9 +131,19 @@ class TodoItem{
     displaySaveCancelInterface(){
         this.domElements.updateControls.removeClass('hidden');
     }
+    hideSaveCancelInterface(){
+        this.domElements.updateControls.addClass('hidden');
+    }
     toggleUpdateStatus( event ){
         $(event.target).addClass('editable').attr('contentEditable',true);
         this.displaySaveCancelInterface();
+    }
+    cancelChanges( ){
+        this.updateDetails();
+        this.hideSaveCancelInterface();
+    }
+    saveChanges(){
+
     }
     renderDetails(){
         var clone = $($("#todoDetails").text());
@@ -138,12 +151,17 @@ class TodoItem{
         this.domElements.details.container = clone;
         this.domElements.updateControls = clone.find('.updateControls');
         this.domElements.saveButton = clone.find('.updateControls .saveButton');
+        this.domElements.saveButton.click( this.saveChanges );
         this.domElements.cancelButton = clone.find('.updateControls .cancelButton');
+        this.domElements.cancelButton.click( this.cancelChanges );
         this.domElements.details.title = clone.find('.title');
         this.domElements.details.added = clone.find('.added');
         this.domElements.details.description = clone.find('.description');
         this.domElements.details.controlContainer = clone.find('.controls');
         this.domElements.details.completedCheckbox = clone.find('.completeCheckbox');
+        for( var elementKey in this.domElements.details ){
+            if($(this.domElements.details[elementKey]).hasClass('updatable'))
+        }
         this.updateDetails();
         return this.domElements.details.container;
     }
