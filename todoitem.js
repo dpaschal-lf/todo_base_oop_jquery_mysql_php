@@ -44,7 +44,7 @@ class TodoItem{
         this.domElements.list.title.text( this.data.title);
         this.domElements.list.added.text( this.data.added );
         if(this.data.completed==='completed'){
-            this.domElements.list.completedCheckbox.attr('checked', true);
+            this.domElements.list.completedCheckbox.prop('checked', true);
         }
     }
     renderList(){
@@ -92,8 +92,8 @@ class TodoItem{
         $.ajax( ajaxOptions );        
     }
     itemUpdated( data ){
-        this.getItemInfo();
         this.cancelChanges();
+        this.getItemInfo();
     }
     getItemInfo(){
         var ajaxOptions = {
@@ -125,9 +125,8 @@ class TodoItem{
         var dateAdded = new Date( this.data.added );
         this.domElements.details.added[0].valueAsNumber = dateAdded.getTime();
         this.domElements.details.description.text(this.data.description);
-        if(this.data.completed==='completed'){
-            this.domElements.details.completedCheckbox.attr('checked', true);
-        }
+        this.domElements.details.completedCheckbox.prop('checked', this.data.completed==='completed');
+
         
     }
     displaySaveCancelInterface(){
@@ -150,6 +149,13 @@ class TodoItem{
     getElementContents( element ){
         switch( element.prop('nodeName')){
             case 'INPUT':
+                if(element.attr('type')==='checkbox'){
+                    if(element.is(':checked')){
+                        return element.val();
+                    } else {
+                        return '';
+                    }
+                }
             case 'TEXTAREA':
                 return element.val();
             default:
@@ -164,7 +170,6 @@ class TodoItem{
             var name = targetElement.attr('name');
             var value = this.getElementContents(targetElement);
             if(name==='completed' ){
-                debugger;
                 if(value){
                     value = 'completed';
                 } else {
