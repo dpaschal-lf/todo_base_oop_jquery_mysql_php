@@ -149,9 +149,9 @@ class TodoItem{
     }
     getElementContents( element ){
         switch( element.prop('nodeName')){
-            case 'input':
-            case 'textarea':
-                return element.value();
+            case 'INPIT':
+            case 'TEXTAREA':
+                return element.val();
             default:
                 return element.text();
         }
@@ -164,7 +164,8 @@ class TodoItem{
             var name = targetElement.attr('name');
             var value = this.getElementContents(targetElement);
             if(name==='completed' ){
-                if(targetElement.attr('checked')){
+                debugger;
+                if(value){
                     value = 'completed';
                 } else {
                     value = 'active';
