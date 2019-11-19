@@ -75,14 +75,11 @@ class TodoItem{
         );
         return this.domElements.list.container;
     }
-    updateItemInfo(){
+    updateItemInfo( updateData ){
+        updateData.id = this.data.id;
         var ajaxOptions = {
             'url': './api/puttodoitems.php',
-            'data': {
-                id: this.data.id,
-                title: this.data.title,
-                description: this.data.description
-            },
+            'data': updateData,
             'headers': {
                 'token': localStorage.getItem('userToken')
             },
@@ -145,8 +142,30 @@ class TodoItem{
             this.editableElements[elementIndex].removeClass('editable');
         }
     }
+    getElementContents( element ){
+        switch( element.prop('nodeName')){
+            case 'input':
+            case 'textarea':
+                return element.value();
+            default:
+                return element.text();
+        }
+    }
     saveChanges(){
-
+        var changedData = {};
+        var updateCount = 0;
+        for( var elementIndex = 0; elementIndex < this.editableElements.length; elementIndex++){
+            var targetElement = this.editableElements[element];
+            var name = targetElement.attr('name');
+            var value = this.getElementContents(targetElement)
+            if(  value !== this.data[name]){
+                changedData[name] = value;
+                updateCount++;
+            }
+        }
+        if(updateCount){
+            this.updateItemInfo( changedData );
+        }
     }
     renderDetails(){
         var clone = $($("#todoDetails").text());

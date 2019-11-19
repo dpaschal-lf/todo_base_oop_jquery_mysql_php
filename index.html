@@ -19,12 +19,12 @@
     <script id="todoDetails" type="text/html">
         <div class="details">
             <div class="titleControls">
-                <div class="title updatable" placeholder='title'></div>
+                <div name="title" class="title updatable"></div>
                 <div class="controls">
-                    <input class="completeCheckbox updatable" type="checkbox">
+                    <input name="completed" class="completeCheckbox updatable" type="checkbox">
                 </div>
             </div>
-            <div class="description updatable" placeholder='description'></div>
+            <div name="description" class="description updatable"></div>
             <input type="datetime-local" name="added" class="added">
             <div class="updateControls hidden">
                     <button class="saveButton">save</button><button class="cancelButton">cancel</button>
