@@ -7,6 +7,7 @@ class TodoItem{
         this.toggleUpdateStatus = this.toggleUpdateStatus.bind( this );
         this.saveChanges = this.saveChanges.bind ( this );
         this.cancelChanges = this.cancelChanges.bind ( this );
+        this.updateListStatus = this.updateListStatus.bind( this );
         this.clickCallback = clickCallback;
         this.receivedTokenCallback = tokenReceivedCallback;
         this.editableElements = [];
@@ -36,6 +37,7 @@ class TodoItem{
                 cancelButton: null
             }
         }
+        this.detailsRendered = false;
     }
     handleClick( ){
         this.clickCallback( this );
@@ -64,7 +66,10 @@ class TodoItem{
             class: 'controlArea'
         });
         this.domElements.list.completedCheckbox = $("<input>",{
-            type: 'checkbox'
+            type: 'checkbox',
+            on: {
+                click: this.updateListStatus
+            }
         });
         this.domElements.list.controlContainer.append(
             this.domElements.list.completedCheckbox
@@ -118,21 +123,26 @@ class TodoItem{
         this.data.completed = data.completed;
         this.data.description = data.description;
         this.data.added = data.added;
+        this.updateDomElements()
         this.updateDetails();      
     }
     updateDetails(){
+        if(!this.detailsRendered){
+            return; //we haven't displayed an item detail data set yet
+        }
         this.domElements.details.title.text(this.data.title);
         var dateAdded = new Date( this.data.added );
         this.domElements.details.added[0].valueAsNumber = dateAdded.getTime();
         this.domElements.details.description.text(this.data.description);
-        this.domElements.details.completedCheckbox.prop('checked', this.data.completed==='completed');
-
-        
+        this.domElements.details.completedCheckbox.prop('checked', this.data.completed==='completed');       
     }
     displaySaveCancelInterface(){
         this.domElements.updateControls.removeClass('hidden');
     }
     hideSaveCancelInterface(){
+        if(!this.detailsRendered){
+            return; //we haven't displayed an item detail data set yet
+        }
         this.domElements.updateControls.addClass('hidden');
     }
     toggleUpdateStatus( event ){
@@ -161,6 +171,17 @@ class TodoItem{
             default:
                 return element.text();
         }
+    }
+    updateListStatus(event){
+        event.stopPropagation();
+        var element = this.domElements.list.completedCheckbox;
+        var value = null;
+        if( element.is(':checked') ){
+            value = 'completed';
+        } else {
+            value = 'active';
+        }
+        this.updateItemInfo( { completed : value });
     }
     saveChanges(){
         var changedData = {};
@@ -205,6 +226,7 @@ class TodoItem{
             }
         }
         this.updateDetails();
+        this.detailsRendered = true;
         return this.domElements.details.container;
     }
 }
