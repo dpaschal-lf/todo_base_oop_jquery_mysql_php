@@ -28,7 +28,9 @@ class TodoItem{
                 added: null,
                 controlContainer: null,
                 completedCheckbox: null,
-                updateControls: null
+                updateControls: null,
+                saveButton: null,
+                cancelButton: null
             }
         }
     }
@@ -120,12 +122,10 @@ class TodoItem{
         this.domElements.details.title.text(this.data.title);
         var dateAdded = new Date( this.data.added );
         this.domElements.details.added[0].valueAsNumber = dateAdded.getTime();
-        debugger;
         this.domElements.details.description.text(this.data.description);
         this.domElements.details.completedCheckbox.attr('checked',this.data.completed );
     }
     displaySaveCancelInterface(){
-        console.log('dispaying save/cancel');
         this.domElements.updateControls.removeClass('hidden');
     }
     toggleUpdateStatus( event ){
@@ -137,6 +137,8 @@ class TodoItem{
         clone.find('.updatable').on('click',this.toggleUpdateStatus);
         this.domElements.details.container = clone;
         this.domElements.updateControls = clone.find('.updateControls');
+        this.domElements.saveButton = clone.find('.updateControls .saveButton');
+        this.domElements.cancelButton = clone.find('.updateControls .cancelButton');
         this.domElements.details.title = clone.find('.title');
         this.domElements.details.added = clone.find('.added');
         this.domElements.details.description = clone.find('.description');
