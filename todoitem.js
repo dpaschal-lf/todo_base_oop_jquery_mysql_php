@@ -141,6 +141,9 @@ class TodoItem{
     cancelChanges( ){
         this.updateDetails();
         this.hideSaveCancelInterface();
+        for(var elementIndex = 0; elementIndex < this.editableElements.length; elementIndex++){
+            this.editableElements[elementIndex].removeClass('editable');
+        }
     }
     saveChanges(){
 
@@ -160,7 +163,9 @@ class TodoItem{
         this.domElements.details.controlContainer = clone.find('.controls');
         this.domElements.details.completedCheckbox = clone.find('.completeCheckbox');
         for( var elementKey in this.domElements.details ){
-            if($(this.domElements.details[elementKey]).hasClass('updatable'))
+            if($(this.domElements.details[elementKey]).hasClass('updatable')){
+                this.editableElements.push( this.domElements.details[elementKey] );
+            }
         }
         this.updateDetails();
         return this.domElements.details.container;

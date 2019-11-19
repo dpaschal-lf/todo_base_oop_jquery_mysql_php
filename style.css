@@ -26,7 +26,7 @@
 .hidden{
     display: none;
 }
-.editable{
+.editable:not(input){
     border: 2px solid blue;
     background-color: lightblue;
 }
