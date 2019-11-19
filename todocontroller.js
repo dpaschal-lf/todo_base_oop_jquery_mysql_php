@@ -8,6 +8,7 @@ class TodoController{
         this.storeUserToken = this.storeUserToken.bind( this );
         this.handleSuccessfulCreateItem = this.handleSuccessfulCreateItem.bind( this );
         this.hideModal = this.hideModal.bind( this );
+        this.goCreate = this.goCreate.bind( this );
         this.domElements = {
             container: $(appDomElement),
             modalShadow: $(modalDomElements.shadow),
@@ -94,6 +95,7 @@ class TodoController{
         var removedFields = ['.added','.controls'];
         editableFields.forEach( field => clone.find(field).attr('contentEditable','editabe').addClass('editable'));
         removedFields.forEach( field => clone.find(field).remove());
+        return clone;
     }
     view_details(){
         this.domElements.backButton.removeClass('hidden');
@@ -114,6 +116,10 @@ class TodoController{
         var currentViewMethod = 'view_' + this.view;
         this.domElements.centerContainer.empty()
         this.domElements.centerContainer.append( this[currentViewMethod]());        
+    }
+    goCreate(){
+        this.view = 'create';
+        this.renderCurrentView();
     }
     goBack(){
         this.view='list';
@@ -138,6 +144,13 @@ class TodoController{
                 click: this.goBack
             }
         });
+        this.domElements.createButton = $("<button>",{
+            class: 'createButton',
+            text: '+',
+            on: {
+                click: this.goCreate
+            }
+        })
         this.domElements.controls.append( this.domElements.backButton );
         this.domElements.footer = $("<footer>",{
             class: 'footer',
