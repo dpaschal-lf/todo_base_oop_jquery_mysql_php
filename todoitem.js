@@ -43,7 +43,9 @@ class TodoItem{
     updateDomElements(){
         this.domElements.list.title.text( this.data.title);
         this.domElements.list.added.text( this.data.added );
-        this.domElements.list.completedCheckbox.attr('checked',this.data.completed );
+        if(this.data.completed==='completed'){
+            this.domElements.list.completedCheckbox.attr('checked', true);
+        }
     }
     renderList(){
         this.domElements.list.container = $("<div>",{
@@ -123,7 +125,10 @@ class TodoItem{
         var dateAdded = new Date( this.data.added );
         this.domElements.details.added[0].valueAsNumber = dateAdded.getTime();
         this.domElements.details.description.text(this.data.description);
-        this.domElements.details.completedCheckbox.attr('checked',this.data.completed );
+        if(this.data.completed==='completed'){
+            this.domElements.details.completedCheckbox.attr('checked', true);
+        }
+        
     }
     displaySaveCancelInterface(){
         this.domElements.updateControls.removeClass('hidden');
