@@ -154,10 +154,18 @@ class TodoItem{
     saveChanges(){
         var changedData = {};
         var updateCount = 0;
+        debugger;
         for( var elementIndex = 0; elementIndex < this.editableElements.length; elementIndex++){
-            var targetElement = this.editableElements[element];
+            var targetElement = this.editableElements[elementIndex];
             var name = targetElement.attr('name');
-            var value = this.getElementContents(targetElement)
+            var value = this.getElementContents(targetElement);
+            if(name==='completed' ){
+                if(targetElement.attr('checked')){
+                    value = 'completed';
+                } else {
+                    value = 'active';
+                }
+            } 
             if(  value !== this.data[name]){
                 changedData[name] = value;
                 updateCount++;
