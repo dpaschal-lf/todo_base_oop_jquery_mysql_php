@@ -92,8 +92,8 @@ class TodoItem{
         $.ajax( ajaxOptions );        
     }
     itemUpdated( data ){
-        alert('updated');
         this.getItemInfo();
+        this.cancelChanges();
     }
     getItemInfo(){
         var ajaxOptions = {
@@ -159,7 +159,6 @@ class TodoItem{
     saveChanges(){
         var changedData = {};
         var updateCount = 0;
-        debugger;
         for( var elementIndex = 0; elementIndex < this.editableElements.length; elementIndex++){
             var targetElement = this.editableElements[elementIndex];
             var name = targetElement.attr('name');
