@@ -86,7 +86,8 @@ class TodoItem{
         $.ajax( ajaxOptions );        
     }
     itemUpdated( data ){
-
+        alert('updated');
+        this.getItemInfo();
     }
     getItemInfo(){
         var ajaxOptions = {

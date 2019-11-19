@@ -20,7 +20,7 @@ if(!function_exists('prepare_statement')){
         } 
         $statement = $db->prepare($query);
         if(!$statement){
-            throw new Exception('error with prepared statement: '.$query. ' : '.$statement->error);
+            throw new Exception('error with prepared statement: '.$query. ' : '.$db->error);
         }
         $paramTypes = '';
         foreach($params AS $value){
