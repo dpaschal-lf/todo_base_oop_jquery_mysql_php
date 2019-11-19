@@ -26,6 +26,10 @@
 .hidden{
     display: none;
 }
+.editable{
+    border: 2px solid blue;
+    background-color: lightblue;
+}
 
 /* modal info */
 

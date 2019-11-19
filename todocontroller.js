@@ -9,17 +9,21 @@ class TodoController{
         this.handleSuccessfulCreateItem = this.handleSuccessfulCreateItem.bind( this );
         this.hideModal = this.hideModal.bind( this );
         this.goCreate = this.goCreate.bind( this );
+        this.handleCreateSave = this.handleCreateSave.bind( this );
         this.domElements = {
             container: $(appDomElement),
             modalShadow: $(modalDomElements.shadow),
             modalBody: $(modalDomElements.body),
             modalClose: $(modalDomElements.close),
             modalContent: $(modalDomElements.content),
+            createTitle: null,
+            createDescription: null,
             centerContainer: null,
             controls: null,
             title: null,
             footer: null,
-            backButton: null
+            backButton: null,
+            createButton: null
         }
         this.currentItem = null;
         this.items = [];
@@ -89,12 +93,25 @@ class TodoController{
     hideModal(){
         this.domElements.modalShadow.addClass('hidden');
     }
+    handleCreateSave(){
+        if(this.domElements.createTitle.val().length === 0){
+            this.displayModal('title must be included');
+            return;
+        }
+        if(this.domElements.createDescription.val().length === 0){
+            this.displayModal('description must be included');
+            return;
+        }
+        this.createTodoItem( this.domElements.createTitle.val(), this.domElements.createDescription.val() );
+    }
     view_create(){
-        var clone = $($('#todoDetails').text());
-        var editableFields = ['.title', '.description'];
-        var removedFields = ['.added','.controls'];
-        editableFields.forEach( field => clone.find(field).attr('contentEditable','editabe').addClass('editable'));
-        removedFields.forEach( field => clone.find(field).remove());
+        this.domElements.backButton.removeClass('hidden');
+        this.domElements.createButton.addClass('hidden');
+        var clone = $($('#todoCreate').text());
+        this.domElements.createTitle = clone.find('.title');
+        this.domElements.createDescription = clone.find('.description');
+        clone.find('.saveButton').click( this.handleCreateSave );
+        clone.find('.cancelButton').click( this.goBack );
         return clone;
     }
     view_details(){
@@ -105,6 +122,7 @@ class TodoController{
     }
     view_list(){
         this.domElements.backButton.addClass('hidden');
+        this.domElements.createButton.removeClass('hidden');
         var domElementArray = [];
         for( var todoIndex = 0; todoIndex < this.items.length; todoIndex++){
             var todoItem = this.items[ todoIndex ];
@@ -151,7 +169,7 @@ class TodoController{
                 click: this.goCreate
             }
         })
-        this.domElements.controls.append( this.domElements.backButton );
+        this.domElements.controls.append( this.domElements.backButton, this.domElements.createButton );
         this.domElements.footer = $("<footer>",{
             class: 'footer',
             text: 'footer'
