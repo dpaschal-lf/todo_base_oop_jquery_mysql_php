@@ -149,7 +149,7 @@ class TodoItem{
     }
     getElementContents( element ){
         switch( element.prop('nodeName')){
-            case 'INPIT':
+            case 'INPUT':
             case 'TEXTAREA':
                 return element.val();
             default:
