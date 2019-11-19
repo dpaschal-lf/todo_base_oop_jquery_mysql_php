@@ -86,7 +86,7 @@ class TodoItem{
                 'token': localStorage.getItem('userToken')
             },
             'dataType': 'json',
-            'method': 'put',
+            'method': 'post',
             'success': this.itemUpdated
         }
         $.ajax( ajaxOptions );        
