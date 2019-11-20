@@ -1,28 +1,12 @@
-.todoListItem{
-    position: relative;
-    padding-bottom: 2px;
-    display: flex;
-}
-.todoListItem > .title{
-    font-size: 1.2em;
-    font-weight: bold;
-    width: 50%;
-}
-.todoListItem > .added{
-    width: 25%;
-}
-.todoListItem > .controlArea{
-    width: 25%;
-}
-.todoListItem::after{
-    content: '';
-    width: 90%;
-    left: 5%;
-    bottom: 0%;
-    position: absolute;
-    border-bottom: 1px solid black;
-}
 
+body{
+    display: flex;
+    font-size: 3vmin;
+}
+#todoApp{
+    width: 90%;
+    margin: auto;
+}
 .hidden{
     display: none;
 }
@@ -30,6 +14,31 @@
     border: 2px solid blue;
     background-color: lightblue;
 }
+.button{
+    height: 7vmin;
+    width: 10vmin;
+    background-color: lightgrey;
+    font-size: 2em;
+    display: flex;
+    text-align: center;
+    display: inline-block;
+    margin: 1% 2%;
+    line-height: 1em;
+    vertical-align: top;
+    cursor: pointer;
+}
+.createButton{
+
+}
+.backButton{
+    font-size: 1em;
+    line-height: 2em;
+}
+input[type=checkbox]{
+    transform: scale(2);
+}
+
+
 
 /* modal info */
 

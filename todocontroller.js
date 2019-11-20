@@ -155,15 +155,15 @@ class TodoController{
         this.domElements.controls = $("<header>",{
             class: 'header controls',
         });
-        this.domElements.backButton = $("<button>",{
-            class: 'backButton hidden',
+        this.domElements.backButton = $("<div>",{
+            class: 'backButton button hidden',
             text: 'back',
             on: {
                 click: this.goBack
             }
         });
-        this.domElements.createButton = $("<button>",{
-            class: 'createButton',
+        this.domElements.createButton = $("<div>",{
+            class: 'createButton button',
             text: '+',
             on: {
                 click: this.goCreate

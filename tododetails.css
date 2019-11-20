@@ -1,0 +1,46 @@
+
+.centerContents{
+    margin-top: 5%;
+}
+.todoListItem:nth-child(even){
+    background-color: whitesmoke;
+}
+.todoListItem{
+    position: relative;
+    display: table;
+    width: 100%;
+    cursor: pointer;
+    padding: 1vmin 1vmin;
+}
+.todoListItem:hover{
+    background-color: black;
+    color: white;
+}
+.todoListItem > * {
+    display: table-cell;
+    vertical-align: middle;
+}
+.todoListItem > .title{
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 60%;
+}
+.todoListItem > .added{
+    width: 30%;
+    text-align: center;
+    font-size: .8em;
+}
+.todoListItem > .controlArea{
+    width: 10%;
+}
+.todoListItem::after{
+    content: '';
+    width: 90%;
+    left: 5%;
+    bottom: 0%;
+    position: absolute;
+    border-bottom: 1px solid black;
+}
+footer{
+
+}
