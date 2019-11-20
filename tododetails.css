@@ -41,6 +41,38 @@
     position: absolute;
     border-bottom: 1px solid black;
 }
-footer{
-    margin-top: 3vmin;
+.details .titleControls{
+    display: flex;
+}
+.details .title{
+    background-color: lightgrey;
+    padding: 2% 0%;
+    text-align: center;
+    font-size: 3em;
+    width: 80%;
+}
+.details .controls{
+    width: 20%;
+    display: flex;
+    justify-content: space-around;
+}
+.details input[type=checkbox]{
+    margin: auto;
+    transform: scale(3);
+}
+.details .description{
+    border: 1px solid black;
+    min-height: 30vh;
+}
+.details .button{
+    font-size: 1em;
+    line-height: 2em;
+}
+
+.create input[type=text]{
+    height: 5vmin;
+}
+.create .button{
+    font-size: 1em;
+    line-height: 2em;    
 }
