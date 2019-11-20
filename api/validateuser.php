@@ -17,7 +17,7 @@ if(!function_exists('validateUser')){
     function validateUser(){
         global $db;
         $headers = getallheaders();
-        if(empty($headers['token'])){
+        if(empty($headers['token']) || $headers['token']==='null'){
             $token = createKey();
             $query = "INSERT INTO `users` SET `key`= '$token', `added`=NOW()";
             $result = mysqli_query($db, $query);
