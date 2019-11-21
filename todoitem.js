@@ -104,7 +104,7 @@ class TodoItem{
     }
     getItemInfo(){
         var ajaxOptions = {
-            'url': './api/gettodoitems.php',
+            'url': './api/deletetodoitem.php',
             'data': {
                 id: this.data.id
             },
@@ -113,7 +113,7 @@ class TodoItem{
             },
             'dataType': 'json',
             'method': 'get',
-            'success': this.receiveItemInfo
+            'success': this.deleteCallback
         }
         $.ajax( ajaxOptions );
     }
@@ -209,7 +209,7 @@ class TodoItem{
         }
     }
     handleDelete(){
-        
+
     }
     renderDetails(){
         var clone = $($("#todoDetails").text());
