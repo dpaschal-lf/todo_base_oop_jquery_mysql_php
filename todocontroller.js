@@ -118,12 +118,22 @@ class TodoController{
         this.domElements.createDescription = clone.find('.description');
         clone.find('.saveButton').click( this.handleCreateSave );
         clone.find('.cancelButton').click( this.goBack );
+        this.domElements.footer.html(`
+            <p>Click save to store the item</p>
+            <p>Click cancel or back to abandon this item</p>
+        `)
         return clone;
     }
     view_details(){
         this.domElements.backButton.removeClass('hidden');
         this.currentItem.getItemInfo();
         var domElement = this.currentItem.renderDetails();
+        this.domElements.footer.html(`
+            <p>click + to make a new item</p>
+            <p>click back to go back to the list</p>
+            <p>click on any field to edit it</p>
+            <p>click delete to delete this item</p>
+        `)
         return domElement;
     }
     view_list(){
@@ -134,6 +144,10 @@ class TodoController{
             var todoItem = this.items[ todoIndex ];
             domElementArray.push( todoItem.renderList())
         }
+        this.domElements.footer.html(`
+        <p>Click + to add a new item.</p>
+        <p>Click on a row to edit/delete that row</p>
+    `)
         return domElementArray;
     }
     renderCurrentView(){
