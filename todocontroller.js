@@ -7,6 +7,7 @@ class TodoController{
         this.handleItemClick = this.handleItemClick.bind( this );
         this.storeUserToken = this.storeUserToken.bind( this );
         this.handleSuccessfulCreateItem = this.handleSuccessfulCreateItem.bind( this );
+        this.displayModal = this.displayModal.bind( this );
         this.hideModal = this.hideModal.bind( this );
         this.goCreate = this.goCreate.bind( this );
         this.handleCreateSave = this.handleCreateSave.bind( this );
