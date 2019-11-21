@@ -71,6 +71,17 @@
     font-size: 1em;
     line-height: 2em;
 }
+.centeredText{
+    text-align: center;
+}
+.button.dynamic{
+    width: auto;
+}
+.button.smallText{
+    font-size: 1em;
+    line-height: 2em;
+    text-align: center;
+}
 
 .create input[type=text]{
     height: 5vmin;

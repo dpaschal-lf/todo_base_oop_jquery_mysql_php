@@ -212,24 +212,25 @@ class TodoItem{
         }
     }
     confirmDelete(){
-        debugger;
-        var content = $("<div>");
+        var content = $("<div>").addClass('centeredText');
 
         var deleteButton = $("<button>",{
-            class: 'button',
+            class: 'button dynamic smallText',
+            text: 'delete',
             on:{
                 click: this.handleDelete
             }
         });
         var cancelButton = $("<button>",{
-            class: 'button',
+            class: 'button dynamic smallText',
+            text: 'cancel',
             on:{
                 click: this.closeModalCallback
             }
         });
         content.append(
             'You are about to delete this item',
-            `<em>${this.data.title}</em>`,
+            ` <em>${this.data.title}</em>`,
             `<p>are you sure?</p>`,
             deleteButton,
             cancelButton
@@ -237,6 +238,7 @@ class TodoItem{
         this.modalCallback( content );
     }
     handleDelete(){
+        this.closeModalCallback();
         var ajaxOptions = {
             'url': './api/deletetodoitem.php',
             'data': {
