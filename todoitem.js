@@ -1,6 +1,6 @@
 
 class TodoItem{
-    constructor(dataObject, clickCallback, tokenReceivedCallback){
+    constructor( dataObject, clickCallback, tokenReceivedCallback, deleteCallback ){
         this.receiveItemInfo = this.receiveItemInfo.bind( this );
         this.handleClick = this.handleClick.bind( this );
         this.itemUpdated = this.itemUpdated.bind( this );
@@ -8,6 +8,8 @@ class TodoItem{
         this.saveChanges = this.saveChanges.bind ( this );
         this.cancelChanges = this.cancelChanges.bind ( this );
         this.updateListStatus = this.updateListStatus.bind( this );
+        this.handleDelete = this.handleDelete.bind( this );
+        this.deleteCallback = deleteCallback;
         this.clickCallback = clickCallback;
         this.receivedTokenCallback = tokenReceivedCallback;
         this.editableElements = [];
@@ -206,6 +208,9 @@ class TodoItem{
             this.updateItemInfo( changedData );
         }
     }
+    handleDelete(){
+        
+    }
     renderDetails(){
         var clone = $($("#todoDetails").text());
         clone.find('.updatable').on('click',this.toggleUpdateStatus);
@@ -220,6 +225,8 @@ class TodoItem{
         this.domElements.details.description = clone.find('.description');
         this.domElements.details.controlContainer = clone.find('.controls');
         this.domElements.details.completedCheckbox = clone.find('.completeCheckbox');
+        this.domElements.details.deleteButton = clone.find('.delete');
+        this.domElements.details.deleteButton.click( this.handleDelete )
         for( var elementKey in this.domElements.details ){
             if($(this.domElements.details[elementKey]).hasClass('updatable')){
                 this.editableElements.push( this.domElements.details[elementKey] );
