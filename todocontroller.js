@@ -76,7 +76,7 @@ class TodoController{
         this.items = [];
         this.domElements.centerContainer.empty();
         for( var todoIndex = 0; todoIndex < data.length; todoIndex++){
-            var newItem = new TodoItem( data[todoIndex], this.handleItemClick, this.storeUserToken, this.handleItemDeleted);
+            var newItem = new TodoItem( data[todoIndex], this.handleItemClick, this.storeUserToken, this.handleItemDeleted, this.displayModal, this.hideModal);
             this.items.push(newItem);
         }
         this.renderCurrentView();

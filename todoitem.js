@@ -1,6 +1,6 @@
 
 class TodoItem{
-    constructor( dataObject, clickCallback, tokenReceivedCallback, deleteCallback ){
+    constructor( dataObject, clickCallback, tokenReceivedCallback, deleteCallback, modalCallback, hideModalCallback ){
         this.receiveItemInfo = this.receiveItemInfo.bind( this );
         this.handleClick = this.handleClick.bind( this );
         this.itemUpdated = this.itemUpdated.bind( this );
@@ -9,9 +9,12 @@ class TodoItem{
         this.cancelChanges = this.cancelChanges.bind ( this );
         this.updateListStatus = this.updateListStatus.bind( this );
         this.handleDelete = this.handleDelete.bind( this );
+        this.confirmDelete = this.confirmDelete.bind( this );
         this.deleteCallback = deleteCallback;
         this.clickCallback = clickCallback;
         this.receivedTokenCallback = tokenReceivedCallback;
+        this.modalCallback = modalCallback;
+        this.closeModalCallback = hideModalCallback;
         this.editableElements = [];
         this.data = {
             id: dataObject.id,
@@ -208,6 +211,31 @@ class TodoItem{
             this.updateItemInfo( changedData );
         }
     }
+    confirmDelete(){
+        debugger;
+        var content = $("<div>");
+
+        var deleteButton = $("<button>",{
+            class: 'button',
+            on:{
+                click: this.handleDelete
+            }
+        });
+        var cancelButton = $("<button>",{
+            class: 'button',
+            on:{
+                click: this.closeModalCallback
+            }
+        });
+        content.append(
+            'You are about to delete this item',
+            `<em>${this.data.title}</em>`,
+            `<p>are you sure?</p>`,
+            deleteButton,
+            cancelButton
+        );
+        this.modalCallback( content );
+    }
     handleDelete(){
         var ajaxOptions = {
             'url': './api/deletetodoitem.php',
@@ -238,7 +266,7 @@ class TodoItem{
         this.domElements.details.controlContainer = clone.find('.controls');
         this.domElements.details.completedCheckbox = clone.find('.completeCheckbox');
         this.domElements.details.deleteButton = clone.find('.delete');
-        this.domElements.details.deleteButton.click( this.handleDelete );
+        this.domElements.details.deleteButton.click( this.confirmDelete );
         for( var elementKey in this.domElements.details ){
             if($(this.domElements.details[elementKey]).hasClass('updatable')){
                 this.editableElements.push( this.domElements.details[elementKey] );
