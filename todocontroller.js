@@ -10,6 +10,7 @@ class TodoController{
         this.hideModal = this.hideModal.bind( this );
         this.goCreate = this.goCreate.bind( this );
         this.handleCreateSave = this.handleCreateSave.bind( this );
+        this.handleItemDeleted = this.handleItemDeleted.bind( this );
         this.domElements = {
             container: $(appDomElement),
             modalShadow: $(modalDomElements.shadow),
@@ -75,10 +76,15 @@ class TodoController{
         this.items = [];
         this.domElements.centerContainer.empty();
         for( var todoIndex = 0; todoIndex < data.length; todoIndex++){
-            var newItem = new TodoItem( data[todoIndex], this.handleItemClick, this.storeUserToken);
+            var newItem = new TodoItem( data[todoIndex], this.handleItemClick, this.storeUserToken, this.handleItemDeleted);
             this.items.push(newItem);
         }
         this.renderCurrentView();
+    }
+    handleItemDeleted(){
+        this.view = 'list';
+        this.renderCurrentView();
+        this.loadTodoList();
     }
     handleItemClick( item ){
         this.currentItem = item;
