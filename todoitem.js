@@ -218,7 +218,7 @@ class TodoItem{
                 'token': localStorage.getItem('userToken')
             },
             'dataType': 'json',
-            'method': 'get',
+            'method': 'post',
             'success': this.deleteCallback
         }
         $.ajax( ajaxOptions );
@@ -237,7 +237,6 @@ class TodoItem{
         this.domElements.details.description = clone.find('.description');
         this.domElements.details.controlContainer = clone.find('.controls');
         this.domElements.details.completedCheckbox = clone.find('.completeCheckbox');
-        debugger;
         this.domElements.details.deleteButton = clone.find('.delete');
         this.domElements.details.deleteButton.click( this.handleDelete );
         for( var elementKey in this.domElements.details ){
