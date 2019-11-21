@@ -104,7 +104,7 @@ class TodoItem{
     }
     getItemInfo(){
         var ajaxOptions = {
-            'url': './api/deletetodoitem.php',
+            'url': './api/gettodoitems.php',
             'data': {
                 id: this.data.id
             },
@@ -113,7 +113,7 @@ class TodoItem{
             },
             'dataType': 'json',
             'method': 'get',
-            'success': this.deleteCallback
+            'success': this.receiveItemInfo
         }
         $.ajax( ajaxOptions );
     }
@@ -209,7 +209,19 @@ class TodoItem{
         }
     }
     handleDelete(){
-
+        var ajaxOptions = {
+            'url': './api/deletetodoitem.php',
+            'data': {
+                id: this.data.id
+            },
+            'headers': {
+                'token': localStorage.getItem('userToken')
+            },
+            'dataType': 'json',
+            'method': 'get',
+            'success': this.deleteCallback
+        }
+        $.ajax( ajaxOptions );
     }
     renderDetails(){
         var clone = $($("#todoDetails").text());
@@ -225,8 +237,9 @@ class TodoItem{
         this.domElements.details.description = clone.find('.description');
         this.domElements.details.controlContainer = clone.find('.controls');
         this.domElements.details.completedCheckbox = clone.find('.completeCheckbox');
+        debugger;
         this.domElements.details.deleteButton = clone.find('.delete');
-        this.domElements.details.deleteButton.click( this.handleDelete )
+        this.domElements.details.deleteButton.click( this.handleDelete );
         for( var elementKey in this.domElements.details ){
             if($(this.domElements.details[elementKey]).hasClass('updatable')){
                 this.editableElements.push( this.domElements.details[elementKey] );
