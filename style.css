@@ -63,6 +63,7 @@ input[type=checkbox]{
 }
 #modalContents{
     margin: auto;
+    padding: 2em;
 }
 #modalClose{
     position: absolute;

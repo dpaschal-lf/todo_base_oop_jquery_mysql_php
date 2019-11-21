@@ -60,6 +60,9 @@
     margin: auto;
     transform: scale(3);
 }
+.details .controls .button{
+    margin: auto;
+}
 .details .description{
     border: 1px solid black;
     min-height: 30vh;
