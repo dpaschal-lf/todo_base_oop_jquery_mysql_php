@@ -178,7 +178,10 @@ class TodoController{
         this.domElements.controls.append( this.domElements.backButton, this.domElements.createButton );
         this.domElements.footer = $("<footer>",{
             class: 'footer',
-            text: 'footer'
+            html: `
+                <p>Click + to add a new item.</p>
+                <p>Click on a row to edit/delete that row</p>
+            `
         });
         this.domElements.container.append( 
             this.domElements.title,
