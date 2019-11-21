@@ -7,6 +7,7 @@ class TodoController{
         this.handleItemClick = this.handleItemClick.bind( this );
         this.storeUserToken = this.storeUserToken.bind( this );
         this.handleSuccessfulCreateItem = this.handleSuccessfulCreateItem.bind( this );
+        this.displayModal = this.displayModal.bind( this );
         this.hideModal = this.hideModal.bind( this );
         this.goCreate = this.goCreate.bind( this );
         this.handleCreateSave = this.handleCreateSave.bind( this );
@@ -76,7 +77,7 @@ class TodoController{
         this.items = [];
         this.domElements.centerContainer.empty();
         for( var todoIndex = 0; todoIndex < data.length; todoIndex++){
-            var newItem = new TodoItem( data[todoIndex], this.handleItemClick, this.storeUserToken, this.handleItemDeleted);
+            var newItem = new TodoItem( data[todoIndex], this.handleItemClick, this.storeUserToken, this.handleItemDeleted, this.displayModal, this.hideModal);
             this.items.push(newItem);
         }
         this.renderCurrentView();
